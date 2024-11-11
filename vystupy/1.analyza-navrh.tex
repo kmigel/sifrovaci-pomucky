@@ -1,0 +1,111 @@
+\documentclass{article}
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=cyan,
+    pdfpagemode=FullScreen,
+    }
+\pagenumbering{gobble}
+
+\title{Projekt - Analýza a návrh}
+\author{Anna-Kristina Migel}
+\date{21/10/2024}
+
+\begin{document}
+\maketitle{}
+
+\section{Analýza}
+
+\subsection{Funkční požadavky}
+
+\begin{itemize}
+    \item šifrovací pomůcky
+        \begin{itemize}
+            \item morseovka
+            \item Braille
+            \item semafor
+            \item převod binárky na písmena
+        \end{itemize}
+   \item zadávání inputu různými způsoby
+       \begin{itemize}
+            \item čísla
+            \item čárky a tečky
+            \item hodinové ručičky
+        \end{itemize}
+    \item vymazání celého inputu najednou
+    \item změnit jednu hodnotu inputu bez mazání všech
+    \item seřadit pomůcky podle sebe
+\end{itemize}
+
+\subsection{Nefunkční požadavky}
+
+\begin{itemize}
+    \item zobrazení outputu do 1 sekundy
+    \item cachování inputu pro případ, že by uživatel omylem opustil konkrétní pomůcku
+\end{itemize}
+
+\subsection{Cílová skupina}
+
+\begin{itemize}
+    \item lidé řešící šifrovačky
+        \begin{itemize}
+            \item mají zkušenosti s papírovými pomůcky
+            \item většinou dost inteligentní na použití webové aplikace
+            \item očekávají všechny pomůcky jako na papíře
+            \item očekávají jednoduchý UI na rychlé zadávaní inputu
+        \end{itemize}
+\end{itemize}
+
+\subsection{Technické předpoklady}
+
+\begin{itemize}
+    \item webová aplikace
+    \item responsivní design
+    \item HTML, CSS, Javascript, frameworky (nejspíše React)
+    \item připojení k internetu na načtení stránky
+        \begin{itemize}
+            \item možná nativní aplikace bez připojení
+        \end{itemize}
+\end{itemize}
+
+\subsection{Rizika a možné problémy}
+
+\begin{itemize}
+    \item kompatibilita se všemi prohlížeči
+    \item chyba v pomůckách
+\end{itemize}
+
+\newpage
+
+\section{Návrh}
+
+\subsection{Rozdělení na části}
+
+\begin{itemize}
+    \item frontend
+        \begin{itemize}
+            \item možnost výběru pomůcky
+            \item jednoduché zadávání inputu
+        \end{itemize}
+    \item backend není potřeba
+\end{itemize}
+
+\subsection{Data}
+
+\begin{itemize}
+    \item ukládáme si input
+    \item libovolný formát, .txt
+\end{itemize}
+
+\subsection{Technologie}
+
+\begin{itemize}
+    \item HTML
+    \item CSS, nejspíše SASS
+    \item Javascript
+    \item ideálně framework, ze kterého pak jde udělat nativní mobilní aplikace
+\end{itemize}
+
+\end{document}
