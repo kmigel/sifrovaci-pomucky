@@ -1,14 +1,52 @@
+html, body, div {
+    height: 100%;
+    background-color: black;
+    color: white;
+}
+
+// Menu
 .menu {
     display: flex;
-    justify-content: center;
-    background-color: black;
+    justify-content: space-around;
+    flex-wrap: wrap;
 
     > button {
         width: 500px;
         height: 500px;
+        font-size: 20px;
+    }
+}
+
+button {
+    color: white;
+    background-color: transparent;
+
+    &:hover {
+        background-color: darkgrey;
+        color: black;
     }
 }
 
 .hide {
     display: none;
+}
+
+
+
+// Morseovka
+.morseovka {
+    > button {
+        width: 75px;
+        height: 75px;
+        font-size: 20px;
+    }
+}
+
+.text-gap {
+    min-height: 1.5em;
+}
+
+br + button {
+    width: 200px !important;
+    height: 10px;
 }

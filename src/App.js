@@ -1,5 +1,5 @@
 import React, { Component, useState } from "react";
-import { BrowserRouter as Router, Routes, Route, useNavigate, useLocation } from "react-router-dom";
+import { HashRouter as Router, Routes, Route, useNavigate, useLocation } from "react-router-dom";
 import './App.scss';
 import Morseovka from './pomucky/morseovka.js';
 
@@ -37,6 +37,9 @@ function App() {
       <MenuButtonWrapper name="Morseovka" />
       <MenuButtonWrapper name="Braille" />
       <MenuButtonWrapper name="Semafor" />
+      <MenuButtonWrapper name="Pomucka" />
+      <MenuButtonWrapper name="Pomucka" />
+      <MenuButtonWrapper name="Pomucka" />
     </div>
     <Routes>
       <Route path="/morseovka" element={<Morseovka />} />
