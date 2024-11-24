@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/sifrovaci-pomucky/static/css/main.79d53e73.css",
+    "main.js": "/sifrovaci-pomucky/static/js/main.5b366e5e.js",
+    "static/js/453.a6a97343.chunk.js": "/sifrovaci-pomucky/static/js/453.a6a97343.chunk.js",
+    "index.html": "/sifrovaci-pomucky/index.html",
+    "main.79d53e73.css.map": "/sifrovaci-pomucky/static/css/main.79d53e73.css.map",
+    "main.5b366e5e.js.map": "/sifrovaci-pomucky/static/js/main.5b366e5e.js.map",
+    "453.a6a97343.chunk.js.map": "/sifrovaci-pomucky/static/js/453.a6a97343.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.79d53e73.css",
+    "static/js/main.5b366e5e.js"
+  ]
+}
