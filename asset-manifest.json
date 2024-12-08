@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/sifrovaci-pomucky/static/css/main.df436ba6.css",
-    "main.js": "/sifrovaci-pomucky/static/js/main.75af1967.js",
+    "main.css": "/sifrovaci-pomucky/static/css/main.d391fd3e.css",
+    "main.js": "/sifrovaci-pomucky/static/js/main.13754c30.js",
     "static/js/453.a6a97343.chunk.js": "/sifrovaci-pomucky/static/js/453.a6a97343.chunk.js",
     "index.html": "/sifrovaci-pomucky/index.html",
-    "main.df436ba6.css.map": "/sifrovaci-pomucky/static/css/main.df436ba6.css.map",
-    "main.75af1967.js.map": "/sifrovaci-pomucky/static/js/main.75af1967.js.map",
+    "main.d391fd3e.css.map": "/sifrovaci-pomucky/static/css/main.d391fd3e.css.map",
+    "main.13754c30.js.map": "/sifrovaci-pomucky/static/js/main.13754c30.js.map",
     "453.a6a97343.chunk.js.map": "/sifrovaci-pomucky/static/js/453.a6a97343.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.df436ba6.css",
-    "static/js/main.75af1967.js"
+    "static/css/main.d391fd3e.css",
+    "static/js/main.13754c30.js"
   ]
 }
