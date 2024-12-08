@@ -1,7 +1,9 @@
 import React, { Component, useState } from "react";
-import { HashRouter as Router, Routes, Route, useNavigate, useLocation } from "react-router-dom";
+import { Routes, Route, useNavigate, useLocation } from "react-router-dom";
 import './App.scss';
+
 import Morseovka from './pomucky/morseovka.js';
+import Braille from './pomucky/braille.js';
 
 class MenuButton extends Component {
   constructor(props) {
@@ -43,7 +45,7 @@ function App() {
     </div>
     <Routes>
       <Route path="/morseovka" element={<Morseovka />} />
-      <Route path="/braille" element={<div>Braille</div>} />
+      <Route path="/braille" element={<Braille />} />
       <Route path="/semafor" element={<div>Semafor</div>} />
     </Routes>
   </>);

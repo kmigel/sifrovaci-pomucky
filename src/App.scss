@@ -46,7 +46,21 @@ button {
     min-height: 1.5em;
 }
 
-br + button {
+.back-button {
     width: 200px !important;
-    height: 10px;
+}
+
+
+// Braille
+.braille {
+    > button {
+        width: 75px;
+        height: 75px;
+        font-size: 20px;
+    }
+
+    .clicked {
+        background-color: white;
+        color: black;
+    }
 }
