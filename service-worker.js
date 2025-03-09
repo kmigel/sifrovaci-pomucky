@@ -1,19 +1,20 @@
-const CACHE_NAME = "my-app-cache-v3"; // Change name when updating
+const CACHE_NAME = "my-app-cache-v4"; // Change version to force update
+const BASE_URL = "/sifrovaci-pomucky"; // GitHub Pages subdirectory
+
 const urlsToCache = [
-  "./",
-  "./index.html",
-  "./static/js/main.js",
-  "./static/js/bundle.js",
-  "./static/css/main.css",
-  "./logo192.png",
-  "./manifest.json"
+  `${BASE_URL}/`,
+  `${BASE_URL}/index.html`,
+  `${BASE_URL}/static/js/main.js`,
+  `${BASE_URL}/static/css/main.css`,
+  `${BASE_URL}/logo192.png`,
+  `${BASE_URL}/manifest.json`
 ];
 
 self.addEventListener("install", (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
       return cache.addAll(urlsToCache);
-    })
+    }).catch((error) => console.log("Cache addAll failed:", error))
   );
   self.skipWaiting();
 });
