@@ -1,4 +1,4 @@
-const CACHE_NAME = "my-app-cache-v8";
+const CACHE_NAME = "my-app-cache-v9";
 const BASE_URL = "/sifrovaci-pomucky";
 
 const urlsToCache = [
@@ -43,32 +43,6 @@ self.addEventListener("fetch", (event) => {
           }
           return caches.match("/index.html");
         });
-    })
-  );
-});
-
-
-self.addEventListener("fetch", (event) => {
-  event.respondWith(
-    caches.match(event.request).then((cachedResponse) => {
-      if (cachedResponse) {
-        return cachedResponse;
-      }
-
-      return fetch(event.request)
-        .then((networkResponse) => {
-          if (!networkResponse || networkResponse.status !== 200 || networkResponse.type !== "basic") {
-            return networkResponse;
-          }
-
-          return caches.open(CACHE_NAME).then((cache) => {
-            if (event.request.url.includes("/static/")) {
-              cache.put(event.request, networkResponse.clone());
-            }
-            return networkResponse;
-          });
-        })
-        .catch(() => caches.match("/index.html"));
     })
   );
 });
