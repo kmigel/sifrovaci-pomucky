@@ -1,4 +1,4 @@
-const CACHE_NAME = "my-app-cache-v6";
+const CACHE_NAME = "my-app-cache-v7";
 const BASE_URL = "/sifrovaci-pomucky";
 
 const urlsToCache = [
@@ -23,14 +23,17 @@ self.addEventListener("fetch", (event) => {
       if (cachedResponse) {
         return cachedResponse;
       }
-      return fetch(event.request).then((networkResponse) => {
-        return caches.open(CACHE_NAME).then((cache) => {
-          if (event.request.url.includes("/static/")) {
-            cache.put(event.request, networkResponse.clone());
-          }
-          return networkResponse;
-        });
-      }).catch(() => caches.match(`${BASE_URL}/index.html`));
+
+      return fetch(event.request)
+        .then((networkResponse) => {
+          return caches.open(CACHE_NAME).then((cache) => {
+            if (event.request.url.includes("/static/")) {
+              cache.put(event.request, networkResponse.clone());
+            }
+            return networkResponse;
+          });
+        })
+        .catch(() => caches.match("/index.html"));
     })
   );
 });
