@@ -26,6 +26,10 @@ self.addEventListener("fetch", (event) => {
 
       return fetch(event.request)
         .then((networkResponse) => {
+          if (!networkResponse || networkResponse.status !== 200 || networkResponse.type !== "basic") {
+            return networkResponse;
+          }
+
           return caches.open(CACHE_NAME).then((cache) => {
             if (event.request.url.includes("/static/")) {
               cache.put(event.request, networkResponse.clone());
