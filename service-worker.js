@@ -1,4 +1,4 @@
-const CACHE_NAME = "my-app-cache-v7";
+const CACHE_NAME = "my-app-cache-v8";
 const BASE_URL = "/sifrovaci-pomucky";
 
 const urlsToCache = [
@@ -16,6 +16,37 @@ self.addEventListener("install", (event) => {
   );
   self.skipWaiting();
 });
+
+self.addEventListener("fetch", (event) => {
+  event.respondWith(
+    caches.match(event.request).then((cachedResponse) => {
+      if (cachedResponse) {
+        return cachedResponse;
+      }
+
+      return fetch(event.request)
+        .then((networkResponse) => {
+          if (!networkResponse || networkResponse.status !== 200 || networkResponse.type !== "basic") {
+            return networkResponse;
+          }
+
+          return caches.open(CACHE_NAME).then((cache) => {
+            if (event.request.url.includes("/static/")) {
+              cache.put(event.request, networkResponse.clone());
+            }
+            return networkResponse;
+          });
+        })
+        .catch(() => {
+          if (event.request.url.includes("favicon.ico")) {
+            return new Response(null, { status: 404 });
+          }
+          return caches.match("/index.html");
+        });
+    })
+  );
+});
+
 
 self.addEventListener("fetch", (event) => {
   event.respondWith(
