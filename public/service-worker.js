@@ -1,61 +1,89 @@
-const CACHE_NAME = "my-app-cache-v2"; // Increment cache name to force an update
+const CACHE_NAME = "my-app-cache-v8";
+const BASE_URL = "/sifrovaci-pomucky";
 
 const urlsToCache = [
-  "/",
-  "/index.html",
-  "/static/js/bundle.js",
-  "/static/js/main.js",
-  "/static/css/main.css",
-  "/logo192.png",
-  "/manifest.json"
+  `${BASE_URL}/`,
+  `${BASE_URL}/index.html`,
+  `${BASE_URL}/manifest.json`,
+  `${BASE_URL}/logo192.png`
 ];
 
-// Install and precache resources
 self.addEventListener("install", (event) => {
-  console.log("Service Worker installing...");
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
-      console.log("Caching files...");
       return cache.addAll(urlsToCache);
-    })
+    }).catch((error) => console.error("Cache addAll failed:", error))
   );
-  // Force the service worker to activate immediately
   self.skipWaiting();
 });
 
-
-// Serve cached content when offline
 self.addEventListener("fetch", (event) => {
-  console.log("Fetching:", event.request.url);
   event.respondWith(
-    caches.match(event.request).then((response) => {
-      if (response) {
-        return response; // Serve from cache
+    caches.match(event.request).then((cachedResponse) => {
+      if (cachedResponse) {
+        return cachedResponse;
       }
-      // If not found in cache, fetch from network
-      return fetch(event.request).catch(() => {
-        // Optionally, return a fallback offline page or asset if the network fails
-        console.log('Network request failed. Returning fallback.');
-        return caches.match('/offline.html');  // You can create an offline fallback page if desired
-      });
+
+      return fetch(event.request)
+        .then((networkResponse) => {
+          if (!networkResponse || networkResponse.status !== 200 || networkResponse.type !== "basic") {
+            return networkResponse;
+          }
+
+          return caches.open(CACHE_NAME).then((cache) => {
+            if (event.request.url.includes("/static/")) {
+              cache.put(event.request, networkResponse.clone());
+            }
+            return networkResponse;
+          });
+        })
+        .catch(() => {
+          if (event.request.url.includes("favicon.ico")) {
+            return new Response(null, { status: 404 });
+          }
+          return caches.match("/index.html");
+        });
     })
   );
 });
 
 
-// Clean up old caches
+self.addEventListener("fetch", (event) => {
+  event.respondWith(
+    caches.match(event.request).then((cachedResponse) => {
+      if (cachedResponse) {
+        return cachedResponse;
+      }
+
+      return fetch(event.request)
+        .then((networkResponse) => {
+          if (!networkResponse || networkResponse.status !== 200 || networkResponse.type !== "basic") {
+            return networkResponse;
+          }
+
+          return caches.open(CACHE_NAME).then((cache) => {
+            if (event.request.url.includes("/static/")) {
+              cache.put(event.request, networkResponse.clone());
+            }
+            return networkResponse;
+          });
+        })
+        .catch(() => caches.match("/index.html"));
+    })
+  );
+});
+
 self.addEventListener("activate", (event) => {
-  console.log("Service Worker activating...");
   event.waitUntil(
     caches.keys().then((cacheNames) => {
       return Promise.all(
         cacheNames.map((cache) => {
           if (cache !== CACHE_NAME) {
-            console.log("Deleting old cache:", cache);
             return caches.delete(cache);
           }
         })
       );
     })
   );
+  self.clients.claim();
 });
