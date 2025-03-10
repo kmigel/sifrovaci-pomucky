@@ -37,12 +37,13 @@ function App() {
 
   return (<>
     <div className={inMenu ? "menu" : "hide"}>
-      <MenuButtonWrapper name="Morseovka" />
-      <MenuButtonWrapper name="Braille" />
-      <MenuButtonWrapper name="Semafor" />
-      <MenuButtonWrapper name="Pomucka" />
-      <MenuButtonWrapper name="Pomucka" />
-      <MenuButtonWrapper name="Pomucka" />
+      <div className="button-cont">
+        <MenuButtonWrapper name="Morseovka" />
+        <MenuButtonWrapper name="Braille" />
+        <MenuButtonWrapper name="Semafor" />
+        <MenuButtonWrapper name="Pomucka" />
+        <MenuButtonWrapper name="Pomucka" />
+      </div>
     </div>
     <Routes>
       <Route path="/morseovka" element={<Morseovka />} />

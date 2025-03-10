@@ -1,19 +1,41 @@
+$bg-color: black;
+$text-color: #00c9c8;
+
 html, body, div {
     height: 100%;
-    background-color: black;
+    background-color: $bg-color;
     color: white;
 }
 
 // Menu
 .menu {
     display: flex;
-    justify-content: space-around;
-    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 2vmin;
 
-    > button {
-        width: 500px;
-        height: 500px;
-        font-size: 20px;
+    > .button-cont {
+        display: flex;
+        justify-content: space-around;
+        max-width: 800px;
+        gap: 5vmin;
+        flex-wrap: wrap;
+        > button {
+            width: 25vmin;
+            height: 25vmin;
+            min-width: 130px;
+            min-height: 130px;
+            font-size: 1.25rem;
+            border: 9px solid $text-color;
+            border-radius: 50%;
+            
+            transition: background-color 0.4s linear;
+            &:hover {
+                background-color: rgba(51, 181, 225, 0.4);
+                color: white;
+            }
+        }
     }
 }
 
@@ -23,7 +45,7 @@ button {
 
     &:hover {
         background-color: darkgrey;
-        color: black;
+        color: $bg-color;
     }
 }
 
@@ -63,7 +85,7 @@ button {
 
     .clicked {
         background-color: white;
-        color: black;
+        color: $bg-color;
     }
 }
 
