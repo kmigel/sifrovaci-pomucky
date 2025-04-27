@@ -12,7 +12,7 @@
 }
 .symbol {
     margin: 0 2px;
-    font-size: 1.5em;
+    font-size: 1.7em;
     &.cursor {
         text-decoration: underline;
         font-weight: bold;
@@ -59,7 +59,7 @@
         height: 90px;
     }
 }
-.controls button, .back-button {
+.controls button, .back-button, .flip {
     background-color: #222;
     border: 1px solid #555;
     border-radius: 4px;
@@ -68,14 +68,14 @@
     cursor: pointer;
     font-size: 2em;
 
-    &:hover {
+    &:hover, &:active {
         background-color: #444;
     }
 }
 .letter {
     margin: 0 2px;
     border-bottom: 1px dotted white;
-    font-size: 1.4em;
+    font-size: 1.6em;
     &.active {
         background-color: #444;
         border-bottom: 1px solid #ff4444;
@@ -84,4 +84,13 @@
 .back-button {
     margin-top: 20px;
     font-size: 1.2em;
+}
+.title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.flip {
+    height: 100%;
+    font-size: 1em;
 }

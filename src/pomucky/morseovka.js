@@ -89,6 +89,16 @@ function Morseovka() {
         setLetterLength(lens);
     }
 
+    function Flip() {
+        let newText = "";
+        for(let i = 0; i < text.length; i++) {
+            if(text[i] == '.') newText += "-";
+            else if(text[i] == '-') newText += ".";
+            else newText += text[i];
+        }
+        setText(newText);
+    }
+
     useEffect(() => {
         morseToText(text);
     }, [text]);
@@ -159,7 +169,10 @@ function Morseovka() {
 
     return (
         <div className="morseovka">
-            <h1>Morseovka</h1>
+            <div className="title">
+                <h1>Morseovka</h1>
+                <button className="flip" onClick={Flip}>Flip</button>
+            </div>
             
             <h3>Input:</h3>
             <h3 className="text-gap">
@@ -204,8 +217,7 @@ function Morseovka() {
                     </div>
                 </div>
             </div>
-            
-            <br/>
+                        
             <BackButton/>
         </div>
     );
