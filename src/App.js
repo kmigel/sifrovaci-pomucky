@@ -1,5 +1,6 @@
 import React, { Component, useState } from "react";
 import { Routes, Route, useNavigate, useLocation } from "react-router-dom";
+import './reset.css';
 import './App.scss';
 
 import Morseovka from './pomucky/morseovka.js';

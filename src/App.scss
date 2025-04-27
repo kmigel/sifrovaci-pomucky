@@ -2,7 +2,6 @@ $bg-color: black;
 $text-color: #00c9c8;
 
 html, body, div {
-    height: 100%;
     background-color: $bg-color;
     color: white;
 }
@@ -39,40 +38,10 @@ html, body, div {
     }
 }
 
-button {
-    color: white;
-    background-color: transparent;
-
-    &:hover {
-        background-color: darkgrey;
-        color: $bg-color;
-    }
-}
-
 .hide {
     display: none;
 }
 
-
-
-// Morseovka
-.morseovka {
-    > button {
-        width: 75px;
-        height: 75px;
-        font-size: 20px;
-    }
-}
-
-.text-gap {
-    min-height: 1.5em;
-}
-
-.back-button {
-    height: 75px !important;
-    font-size: 20px !important;
-    width: 200px !important;
-}
 
 
 // Braille

@@ -1,0 +1,87 @@
+.morseovka {
+    padding: 30px;
+    background-color: black;
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+}
+.text-gap {
+    min-height: 1.5em;
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 10px;
+}
+.symbol {
+    margin: 0 2px;
+    font-size: 1.5em;
+    &.cursor {
+        text-decoration: underline;
+        font-weight: bold;
+        color: #ff4444;
+    }
+}
+.controls-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.controls {
+    margin: 60px 0 20px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+
+    > div {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    @media screen and (min-width: 650px) {
+        flex-direction: row;
+        justify-content: space-between;
+        max-width: 900px;
+
+        > div {
+            width: auto;
+            gap: 10px;
+        }
+    }
+}
+.controls button {
+    width: 25vw;
+    height: 25vw;
+
+    @media screen and (min-width: 650px) {
+        width: 90px;
+        height: 90px;
+    }
+}
+.controls button, .back-button {
+    background-color: #222;
+    border: 1px solid #555;
+    border-radius: 4px;
+    color: #eee;
+    padding: 8px 12px;
+    cursor: pointer;
+    font-size: 2em;
+
+    &:hover {
+        background-color: #444;
+    }
+}
+.letter {
+    margin: 0 2px;
+    border-bottom: 1px dotted white;
+    font-size: 1.4em;
+    &.active {
+        background-color: #444;
+        border-bottom: 1px solid #ff4444;
+    }
+}
+.back-button {
+    margin-top: 20px;
+    font-size: 1.2em;
+}
