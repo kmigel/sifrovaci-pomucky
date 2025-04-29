@@ -21,6 +21,8 @@ html, body, div {
         gap: 5vmin;
         flex-wrap: wrap;
         > button {
+            background-color: #222;
+            color: white;
             width: 25vmin;
             height: 25vmin;
             min-width: 130px;
@@ -50,6 +52,8 @@ html, body, div {
         width: 75px;
         height: 75px;
         font-size: 20px;
+        background-color: #222;
+        color: white;
     }
 
     .clicked {
@@ -74,6 +78,8 @@ html, body, div {
         position: relative; 
 
         > button {
+            background-color: #222;
+            color: white;
             padding: 0;
             position: absolute;
             width: 20%;
