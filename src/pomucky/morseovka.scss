@@ -5,7 +5,7 @@
     font-family: Arial, Helvetica, sans-serif;
 }
 .text-gap {
-    min-height: 1.5em;
+    min-height: 1.7em;
     display: flex;
     flex-wrap: wrap;
     margin-bottom: 10px;
@@ -67,17 +67,13 @@
     padding: 8px 12px;
     cursor: pointer;
     font-size: 2em;
-
-    &:hover, &:active {
-        background-color: #444;
-    }
 }
 .letter {
     margin: 0 2px;
     border-bottom: 1px dotted white;
     font-size: 1.6em;
     &.active {
-        background-color: #444;
+        background-color: #444444c1;
         border-bottom: 1px solid #ff4444;
     }
 }
@@ -93,4 +89,13 @@
 .flip {
     height: 100%;
     font-size: 1em;
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .symbol:hover, .letter:hover {
+        cursor: pointer;
+    }
+    .controls button:hover, .back-button:hover, .flip:hover {
+        background-color: #444;
+    }
 }

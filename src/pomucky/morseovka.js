@@ -175,7 +175,13 @@ function Morseovka() {
             </div>
             
             <h3>Input:</h3>
-            <h3 className="text-gap">
+            <h3 className="text-gap"
+            onClick={(e) => {
+                // If clicking on empty space (not on a symbol), move cursor to last symbol
+                if (e.target === e.currentTarget && text.length > 0) {
+                  setCursorIndex(text.length);
+                }
+              }}>
                 {text.split('').map((char, i) => (
                     <span
                     key={i}
@@ -186,7 +192,10 @@ function Morseovka() {
                     </span>
                 ))}
                 {cursorIndex == text.length && (
-                    <span className="symbol cursor">&nbsp;</span>
+                    <span
+                    className="symbol cursor"
+                    onClick={() => setCursorIndex(text.length > 0 ? text.length - 1 : 0)}
+                    >&nbsp;</span>
                 )}
             </h3>
 
