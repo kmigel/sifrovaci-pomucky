@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import { useNavigate } from "react-router-dom";
+import './braille.scss';
 
 const BrailleMap = new Map([
     ["000000", " "],
@@ -38,76 +39,152 @@ function BackButton() {
         return navigate("/");
     }
     return(
-        <button class="back-button" onClick={handleClick}>Back to Menu</button>
+        <button className="back-button" onClick={handleClick}>Back to Menu</button>
     )
 };
 
 function Braille() {
-    let[letters, setLetters] = useState(["000000"]);
-    let[lettersInd, setLettersInd] = useState(0);
-    let[convertedText, setConvertedText] = useState("");
+    let[letters, setLetters] = useState(["000000"], ["000000"]);
+    let[cursorInd, setCursorInd] = useState(0);
+    let[text, setText] = useState([]);
 
     const toggleDot = (ind) => {
         setLetters((p) => {
             let newLetters = [...p];
-            let letter = newLetters[lettersInd].split('');
+            let letter = newLetters[cursorInd].split('');
             letter[ind] = letter[ind] === '0' ? '1' : '0';
-            newLetters[lettersInd] = letter.join('');
+            newLetters[cursorInd] = letter.join('');
             return newLetters;
         });
     };
 
-    const Left = () => setLettersInd((prevInd) => Math.max(0, prevInd - 1));
-    const Right = () => {
+    const Back = () => setCursorInd((prevInd) => Math.max(0, prevInd - 1));
+    const Forward = () => {
         setLetters((p) => {
             let newLetters = [...p];
-            if(lettersInd + 1 == newLetters.length) {
+            if(cursorInd + 1 == newLetters.length) {
                 newLetters.push("000000");
             }
+            setCursorInd((prevInd) => Math.min(prevInd + 1, newLetters.length - 1));
             return newLetters;
-        });
-        
-        setLettersInd((prevInd) => Math.min(prevInd + 1, letters.length));
+        });        
+    }
+    const Erase = () => {
+        if(letters.length == 0) return;
+        if(letters.length == 1) {
+            setLetters(["000000"]);
+        }
+        else if(letters.length == cursorInd + 1) {
+            setLetters(prev => {
+                return prev.slice(0, cursorInd);
+            });
+            setCursorInd(prev => prev - 1);
+        }
+        else {
+            setLetters(prev => {
+                return prev.slice(0, cursorInd).concat(prev.slice(cursorInd + 1));
+            });
+        }
     }
 
     function brailleToText(letters) {
-        let decodedText = "";
+        let decodedText = [];
         for(let ind = 0; ind < letters.length; ind++) {
             let letter = letters[ind];
-            if(BrailleMap.has(letter)) decodedText += BrailleMap.get(letter);
-            else decodedText += "?";
+            if(BrailleMap.has(letter)) decodedText.push(BrailleMap.get(letter));
+            else decodedText.push("?");
         }
-        setConvertedText(decodedText);
+        setText(decodedText);
+    }
+    
+    function Flip() {
+        let newLetters = [];
+        for(let l = 0; l < letters.length; l++) {
+            let letter = letters[l];
+            if(letter == "000000") {
+                newLetters.push("000000");
+                continue;
+            }
+            let newLetter = "";
+            for(let i = 0; i < 6; i++) {
+                if(letter[i] == '0') newLetter += "1"
+                else newLetter += "0";
+            }
+            newLetters.push(newLetter);
+        }
+        setLetters(newLetters);
     }
 
     useEffect(() => {
         brailleToText(letters);
     }, [letters]);
 
+    function emptyCharacter() {
+        if(cursorInd + 1 >= letters.length) {
+            setLetters(prev => prev.concat(["000000"]));
+        }
+    }
+    useEffect(() => {
+        emptyCharacter();
+    }, [cursorInd]);
+
+    function handleLetterClick(index) {
+        setCursorInd(index);
+    }
 
     return (
-        <div class="braille">
-            <h1>Braille</h1>
-            
-            <h3>Input:</h3>
-            <button className={letters[lettersInd][0] === '1' ? "clicked" : ""} onClick={() => toggleDot(0)}>1</button>
-            <button className={letters[lettersInd][1] === '1' ? "clicked" : ""} onClick={() => toggleDot(1)}>2</button>
-            <br/>
-            <button className={letters[lettersInd][2] === '1' ? "clicked" : ""} onClick={() => toggleDot(2)}>3</button>
-            <button className={letters[lettersInd][3] === '1' ? "clicked" : ""} onClick={() => toggleDot(3)}>4</button>
-            <br/>
-            <button className={letters[lettersInd][4] === '1' ? "clicked" : ""} onClick={() => toggleDot(4)}>5</button>
-            <button className={letters[lettersInd][5] === '1' ? "clicked" : ""} onClick={() => toggleDot(5)}>6</button>
-            <br/>
-            <br/>
-
-            <button onClick={Left}>Left</button>
-            <button onClick={Right}>Right</button>
-
+        <div className="braille">
+            <div className='title'>
+                <h1>Braille</h1>
+                <button className="flip" onClick={Flip}>Flip</button>
+            </div>
             
             <h3>Converted:</h3>
-            <h3 class="text-gap">{convertedText}</h3>
-            
+            <h3 className="text-gap text"
+            onClick={(e) => {
+                if (e.target === e.currentTarget && letters.length > 0) {
+                  setCursorInd(letters.length - 2);
+                }
+              }}>
+                {text.map((letter, index) => (
+                    <span
+                        key={index}
+                        onClick={() => handleLetterClick(index)}
+                        className={`letter ${index == cursorInd ? 'active cursor' : ''} ${letter == ' ' ? 'blank' : ''}`}
+                    >
+                    {letter == ' ' ? '\u00A0' : letter}
+                    </span>
+                ))}
+                {cursorInd == text.length && (
+                    <span
+                    className="symbol cursor"
+                    onClick={() => setCursorInd(text.length > 0 ? text.length - 1 : 0)}
+                    >&nbsp;</span>
+                )}
+            </h3>
+
+            <div className='buttons-container'>
+                <div className='buttons'>
+                    <div className='controls'>
+                        <button className='control' onClick={Back}>←</button>
+                        <button className='control' onClick={Forward}>→</button>
+                        <button className='control' onClick={Erase}>⌫</button>
+                    </div>
+                    <div className='dots-grid'>
+                        {Array.from({length: 6}).map((_, ind) => (
+                            <button
+                                key = {ind}
+                                className={`dot-button ${letters[cursorInd][ind] == '1' ? 'active' : ''}`}
+                                onClick={() => toggleDot(ind)}
+                            >
+                                {ind + 1}
+                            </button>
+                        ))}
+                        <br/>
+                        <br/>
+                    </div>
+                </div>
+            </div>
             <br/>
             <BackButton/>
         </div>

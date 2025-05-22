@@ -44,24 +44,6 @@ html, body, div {
     display: none;
 }
 
-
-
-// Braille
-.braille {
-    > button {
-        width: 75px;
-        height: 75px;
-        font-size: 20px;
-        background-color: #222;
-        color: white;
-    }
-
-    .clicked {
-        background-color: white;
-        color: $bg-color;
-    }
-}
-
 // Semafor
 .semafor {
     .button-container {
