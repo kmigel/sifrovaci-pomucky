@@ -177,7 +177,6 @@ function Morseovka() {
             <h3>Input:</h3>
             <h3 className="text-gap"
             onClick={(e) => {
-                // If clicking on empty space (not on a symbol), move cursor to last symbol
                 if (e.target === e.currentTarget && text.length > 0) {
                   setCursorIndex(text.length);
                 }
