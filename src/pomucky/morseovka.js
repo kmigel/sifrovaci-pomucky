@@ -171,7 +171,7 @@ function Morseovka() {
         <div className="morseovka">
             <div className="title">
                 <h1>Morseovka</h1>
-                <button className="flip" onClick={Flip}>Flip</button>
+                <button className="flip" onClick={Flip}>Flip . to -</button>
             </div>
             
             <h3>Input:</h3>
