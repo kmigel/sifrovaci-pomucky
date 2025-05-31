@@ -85,12 +85,12 @@ function Semafor() {
             return;
         }
 
-        if(letters.length == 0) return;
-        setNewLetter(prev => prev - 1);
         if(letters.length == 1) {
             setLetters([[]]);
+            return;
         }
-        else if(letters.length == cursorInd + 1) {
+        setNewLetter(prev => prev - 1);
+        if(letters.length == cursorInd + 1) {
             setLetters(prev => {
                 return prev.slice(0, cursorInd);
             });
@@ -117,7 +117,6 @@ function Semafor() {
                 else decodedText.push("?");
             }
         }
-        console.log(newLetter)
         setText(decodedText);
         if(newLetter == cursorInd && letters[cursorInd].length == 2) {
             setTimeout(() => {
