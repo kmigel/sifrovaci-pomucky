@@ -44,7 +44,7 @@ function BackButton() {
 };
 
 function Braille() {
-    let[letters, setLetters] = useState(["000000"], ["000000"]);
+    let[letters, setLetters] = useState(["000000"]);
     let[cursorInd, setCursorInd] = useState(0);
     let[text, setText] = useState([]);
 
@@ -96,31 +96,13 @@ function Braille() {
         }
         setText(decodedText);
     }
-    
-    function Flip() {
-        let newLetters = [];
-        for(let l = 0; l < letters.length; l++) {
-            let letter = letters[l];
-            if(letter == "000000") {
-                newLetters.push("000000");
-                continue;
-            }
-            let newLetter = "";
-            for(let i = 0; i < 6; i++) {
-                if(letter[i] == '0') newLetter += "1"
-                else newLetter += "0";
-            }
-            newLetters.push(newLetter);
-        }
-        setLetters(newLetters);
-    }
 
     useEffect(() => {
         brailleToText(letters);
     }, [letters]);
 
     function emptyCharacter() {
-        if(cursorInd + 1 >= letters.length) {
+        if(letters.length == 1 || letters[letters.length - 1] != "000000") {
             setLetters(prev => prev.concat(["000000"]));
         }
     }
@@ -134,41 +116,32 @@ function Braille() {
 
     return (
         <div className="braille">
-            <div className='title'>
-                <h1>Braille</h1>
-                <button className="flip" onClick={Flip}>Flip</button>
-            </div>
+            <h1>Braille</h1>
             
             <h3>Converted:</h3>
-            <h3 className="text-gap text"
+            <h3 className="text-gap"
             onClick={(e) => {
                 if (e.target === e.currentTarget && letters.length > 0) {
-                  setCursorInd(letters.length - 2);
+                    setCursorInd(letters.length - 1);
                 }
               }}>
                 {text.map((letter, index) => (
                     <span
                         key={index}
                         onClick={() => handleLetterClick(index)}
-                        className={`letter ${index == cursorInd ? 'active cursor' : ''} ${letter == ' ' ? 'blank' : ''}`}
+                        className={`letter ${index == cursorInd ? 'active cursor' : ''}`}
                     >
                     {letter == ' ' ? '\u00A0' : letter}
                     </span>
                 ))}
-                {cursorInd == text.length && (
-                    <span
-                    className="symbol cursor"
-                    onClick={() => setCursorInd(text.length > 0 ? text.length - 1 : 0)}
-                    >&nbsp;</span>
-                )}
             </h3>
 
             <div className='buttons-container'>
                 <div className='buttons'>
                     <div className='controls'>
+                        <button className='control' onClick={Erase}>⌫</button>
                         <button className='control' onClick={Back}>←</button>
                         <button className='control' onClick={Forward}>→</button>
-                        <button className='control' onClick={Erase}>⌫</button>
                     </div>
                     <div className='dots-grid'>
                         {Array.from({length: 6}).map((_, ind) => (

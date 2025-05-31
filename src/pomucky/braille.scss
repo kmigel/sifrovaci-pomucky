@@ -10,10 +10,6 @@
         margin-bottom: 10px;
     }
 
-    .text {
-        min-height: 150px;
-    }
-
     .buttons-container {
         display: flex;
         width: 100%;
@@ -32,7 +28,7 @@
         gap: 10px;
         margin-bottom: 20px;
     }
-    .control, .back-button, .flip {
+    .control, .back-button {
         background-color: #222;
         border: 1px solid #555;
         border-radius: 4px;
@@ -80,16 +76,6 @@
         font-size: 1.2em;
     }
 
-    .title {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
-    .flip {
-        height: 100%;
-        font-size: 1em;
-    }
-
     @media (hover: hover) and (pointer: fine) {
         .dot-button:hover {
             background-color: #ff444451;
@@ -102,6 +88,10 @@
 
         .back-button:hover, .control:hover {
             background-color: #444;
+        }
+        
+        .letter:hover {
+            cursor: pointer;
         }
     }
 }
