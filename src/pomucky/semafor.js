@@ -46,6 +46,7 @@ function Semafor() {
     let[letters, setLetters] = useState([[]]);
     let[cursorInd, setCursorInd] = useState(0);
     let[text, setText] = useState([[]]);
+    let[newLetter, setNewLetter] = useState(0);
 
     const toggleCircle = (ind) => {
         setLetters((p) => {
@@ -67,6 +68,7 @@ function Semafor() {
         setLetters((p) => {
             let newLetters = [...p];
             if(cursorInd + 1 == newLetters.length) {
+                setNewLetter(prev => prev + 1);
                 newLetters.push([]);
             }
             setCursorInd(cursorInd + 1);
@@ -74,7 +76,17 @@ function Semafor() {
         });
     };
     const Erase = () => {
+        if(letters[cursorInd].length == 0 && cursorInd > 0) {
+            setLetters(prev => {
+                setNewLetter(prev => prev - 1);
+                setCursorInd(prev => prev - 1);
+                return prev.slice(0, cursorInd - 1).concat([[]]);
+            });
+            return;
+        }
+
         if(letters.length == 0) return;
+        setNewLetter(prev => prev - 1);
         if(letters.length == 1) {
             setLetters([[]]);
         }
@@ -105,15 +117,19 @@ function Semafor() {
                 else decodedText.push("?");
             }
         }
+        console.log(newLetter)
         setText(decodedText);
-        console.log(letters)
-        if(letters[letters.length - 1].length == 2) Forward();
+        if(newLetter == cursorInd && letters[cursorInd].length == 2) {
+            setTimeout(() => {
+                Forward();
+            }, 400);
+        }
     }
+
 
     useEffect(() => {
         semaforToText();
     }, [letters]);
-    console.log(letters)
 
     function emptyCharacter() {
         if(letters.length > 1 && letters[letters.length - 1].length != 0) {
