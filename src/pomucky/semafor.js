@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import { useNavigate } from "react-router-dom";
+import './semafor.scss';
 
 const SemaforMap = new Map([
     ["12", "A"],
@@ -37,88 +38,139 @@ function BackButton() {
         return navigate("/");
     }
     return(
-        <button class="back-button" onClick={handleClick}>Back to Menu</button>
+        <button className="back-button" onClick={handleClick}>Back to Menu</button>
     )
 };
 
 function Semafor() {
     let[letters, setLetters] = useState([[]]);
-    let[lettersInd, setLettersInd] = useState(0);
-    let[convertedText, setConvertedText] = useState("");
+    let[cursorInd, setCursorInd] = useState(0);
+    let[text, setText] = useState([[]]);
 
     const toggleCircle = (ind) => {
         setLetters((p) => {
             let newLetters = [...p];
-            let letter = newLetters[lettersInd];
+            let letter = newLetters[cursorInd];
             if(letter.includes(ind)) letter = letter.filter(item => item !== ind)
+            else if(letter.length == 2) {
+                let newLetter = [letter[1], ind];
+                letter = newLetter;
+            }
             else letter.push(ind);
-            newLetters[lettersInd] = letter;
+            newLetters[cursorInd] = letter;
             return newLetters;
         });
     };
 
-    const Left = () => setLettersInd((prevInd) => Math.max(0, prevInd - 1));
-    const Right = () => {
+    const Back = () => setCursorInd((prevInd) => Math.max(0, prevInd - 1));
+    const Forward = () => {
         setLetters((p) => {
             let newLetters = [...p];
-            if(lettersInd + 1 == newLetters.length) {
+            if(cursorInd + 1 == newLetters.length) {
                 newLetters.push([]);
             }
+            setCursorInd(cursorInd + 1);
             return newLetters;
         });
-        
-        setLettersInd((prevInd) => Math.min(prevInd + 1, letters.length));
-    }
+    };
+    const Erase = () => {
+        if(letters.length == 0) return;
+        if(letters.length == 1) {
+            setLetters([[]]);
+        }
+        else if(letters.length == cursorInd + 1) {
+            setLetters(prev => {
+                return prev.slice(0, cursorInd);
+            });
+            setCursorInd(prev => prev - 1);
+        }
+        else {
+            setLetters(prev => {
+                return prev.slice(0, cursorInd).concat(prev.slice(cursorInd + 1));
+            });
+        }
+    };
 
-    function semaforToText(letters) {
-        let decodedText = "";
+    function semaforToText() {
+        let decodedText = [];
         for(let ind = 0; ind < letters.length; ind++) {
-            let letter = letters[ind];
-            letter.sort();
-            if(letter.length === 0) decodedText += " ";
-            else if(letter.length != 2) decodedText += "?"
+            const original = letters[ind];
+            const letter = [...original].sort();
+
+            if(letter.length === 0) decodedText.push(" ");
+            else if(letter.length != 2) decodedText.push("?");
             else {
                 let p = String(letter[0]) + String(letter[1]);
-                if(SemaforMap.has(p)) decodedText += SemaforMap.get(p);
-                else decodedText += "?";
+                if(SemaforMap.has(p)) decodedText.push(SemaforMap.get(p));
+                else decodedText.push("?");
             }
         }
-        setConvertedText(decodedText);
+        setText(decodedText);
     }
 
     useEffect(() => {
-        semaforToText(letters);
+        semaforToText();
     }, [letters]);
+    console.log(letters)
 
+    function emptyCharacter() {
+        if(letters.length == 1 || letters[letters.length - 1].length != 0) {
+            setLetters(prev => prev.concat([[]]));
+        }
+    }
+    useEffect(() => {
+        emptyCharacter();
+    }, [cursorInd]);
+
+    function handleClick(index) {
+        setCursorInd(index);
+    }
 
     return (
-        <div class="semafor">
-            <h1>Semafor:</h1>
-            
-            <h3>Input:</h3>
-
-            <div className="button-container">
-                {[1, 2, 3, 4, 5, 6, 7, 8].map((num) => (
-                    <button
-                        key={num}
-                        className={letters[lettersInd]?.includes(num) ? "clicked" : ""}
-                        onClick={() => toggleCircle(num)}
-                    >
-                        {num}
-                    </button>
-                ))}
-            </div>
-
-            <br/>
-            <br/>
-
-            <button onClick={Left}>Left</button>
-            <button onClick={Right}>Right</button>
-
+        <div className="semafor">
+            <h1>Semafor</h1>
             
             <h3>Converted:</h3>
-            <h3 class="text-gap">{convertedText}</h3>
-            
+            <h3 className="text-gap"
+            onClick={(e) => {
+                if (e.target === e.currentTarget) {
+                    setCursorInd(letters.length - 1);
+                }
+              }}>
+                {text.map((letter, index) => (
+                    <span
+                        key={index}
+                        onClick={(e) => {
+                            e.stopPropagation();
+                            handleClick(index)
+                        }}
+                        className={index == cursorInd ? "letter cursor" : "letter"}
+                    >
+                    {letter == ' ' ? '\u00A0' : letter}
+                    </span>
+                ))}
+            </h3>
+
+            <div className='buttons-container'>
+                <div className='buttons'>
+                    <div className='controls'>
+                        <button className='control' onClick={Erase}>⌫</button>
+                        <button className='control' onClick={Back}>←</button>
+                        <button className='control' onClick={Forward}>→</button>
+                    </div>
+                    <div className="dot-container">
+                        {[1, 2, 3, 4, 5, 6, 7, 8].map((num) => (
+                            <button
+                                key={num}
+                                className={letters[cursorInd]?.includes(num) ? "dot-button active" : "dot-button"}
+                                onClick={() => toggleCircle(num)}
+                            >
+                            </button>
+                        ))}
+                    </div>
+                </div>
+            </div>
+
             <br/>
             <BackButton/>
         </div>

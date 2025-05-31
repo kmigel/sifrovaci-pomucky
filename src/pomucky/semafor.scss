@@ -1,0 +1,139 @@
+.semafor {
+    padding: 30px;
+    background-color: black;
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+
+    .text-gap {
+        min-height: 1.7em;
+        display: flex;
+        flex-wrap: wrap;
+        margin-bottom: 10px;
+    }
+
+    .text {
+        min-height: 150px;
+    }
+
+    .letter {
+        min-width: 0.4em;
+        margin: 0 2px;
+        margin-bottom: 2px;
+        font-size: 1.3em;
+    }
+
+    .cursor {
+        text-decoration: underline;
+        font-weight: bold;
+        color: #ff4444;
+    }
+
+    .buttons-container {
+        display: flex;
+        justify-content: center;
+    }
+    .buttons {
+        margin-top: 30px;
+        display: flex;
+        gap: 2.5vw;
+    }
+    .controls {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+    }
+    .control {
+        width: min(110px, 16vw);
+        height: min(110px, 16vw);
+        font-size: 1.8em !important;
+    }
+
+    .dot-container {
+        --size: min(70vw, 70vh, 400px);
+        width: var(--size);
+        height: var(--size);
+        max-width: var(--size);
+        max-height: var(--size);
+        
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative; 
+    }
+    
+    .dot-button{
+        background-color: black;
+        border: 10px solid #ff4444;
+        color: #eee;
+        padding: 0;
+        position: absolute;
+        width: 20%;
+        height: 20%;
+        border-radius: 50%;
+        text-align: center;
+                    
+        &:nth-child(1) {--angle: 90deg;}
+        &:nth-child(2) {--angle: 135deg;}
+        &:nth-child(3) {--angle: 180deg;}
+        &:nth-child(4) {--angle: 225deg;}
+        &:nth-child(5) {--angle: 270deg;}
+        &:nth-child(6) {--angle: 315deg;}
+        &:nth-child(7) {--angle: 0deg;}
+        &:nth-child(8) {--angle: 45deg;};
+
+        transform: rotate(var(--angle)) translate(200%) rotate(calc(-1 * var(--angle)));
+
+        &.active {
+            background-color: #ff4444;
+        }
+
+        &.active::before {
+            content: '';
+            position: absolute;
+            width: 5px;
+            height: calc(calc(var(--size) / 2) / 100 * 81);
+            border-radius: 2px;
+            background-color: #ff4444;
+            top: 50%;
+            left: 50%;
+            transform-origin: top center;
+            transform: rotate(calc(var(--angle) + 90deg)) translateY(0%);
+            z-index: -1;
+        }
+    }
+
+    .control, .back-button, .flip {
+        background-color: #222;
+        border: 1px solid #555;
+        border-radius: 4px;
+        color: #eee;
+        padding: 8px 12px;
+        cursor: pointer;
+        font-size: 2em;
+    }
+
+    .back-button {
+        margin-top: 40px;
+        font-size: 1.2em;
+    }
+
+    @media (hover: hover) and (pointer: fine) {
+        .dot-button:hover {
+            background-color: #ff444451;
+            cursor: pointer;
+
+            &.active {
+                background-color: #ff4444;
+            }
+        }
+
+        .back-button:hover, .control:hover {
+            background-color: #444;
+        }
+
+        .letter:hover {
+            cursor: pointer;
+        }
+    }
+}
