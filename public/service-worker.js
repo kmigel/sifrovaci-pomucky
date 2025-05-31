@@ -1,4 +1,4 @@
-const CACHE_NAME = "my-app-cache-v16";
+const CACHE_NAME = "my-app-cache-v17";
 const BASE_URL = "/sifrovaci-pomucky";
 
 const urlsToCache = [

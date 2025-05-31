@@ -70,6 +70,14 @@ function Braille() {
         });        
     }
     const Erase = () => {
+        if(letters[cursorInd] == "000000" && cursorInd > 0) {
+            setLetters(prev => {
+                setCursorInd(prev => prev - 1);
+                return prev.slice(0, cursorInd - 1).concat(["000000"]);
+            });
+            return;
+        }
+
         if(letters.length == 0) return;
         if(letters.length == 1) {
             setLetters(["000000"]);
