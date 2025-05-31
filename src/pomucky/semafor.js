@@ -106,6 +106,8 @@ function Semafor() {
             }
         }
         setText(decodedText);
+        console.log(letters)
+        if(letters[letters.length - 1].length == 2) Forward();
     }
 
     useEffect(() => {
@@ -114,7 +116,7 @@ function Semafor() {
     console.log(letters)
 
     function emptyCharacter() {
-        if(letters.length == 1 || letters[letters.length - 1].length != 0) {
+        if(letters.length > 1 && letters[letters.length - 1].length != 0) {
             setLetters(prev => prev.concat([[]]));
         }
     }
