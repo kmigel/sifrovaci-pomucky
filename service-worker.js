@@ -1,11 +1,13 @@
-const CACHE_NAME = "my-app-cache-v23";
+const CACHE_NAME = "my-app-cache-v24";
 const BASE_URL = "/sifrovaci-pomucky";
 
 const urlsToCache = [
   `${BASE_URL}/`,
   `${BASE_URL}/index.html`,
   `${BASE_URL}/manifest.json`,
-  `${BASE_URL}/logo192.png`
+  `${BASE_URL}/logo192.png`,
+  `${BASE_URL}/logo512.png`,
+  `${BASE_URL}/favicon.ico`
 ];
 
 self.addEventListener("install", (event) => {
