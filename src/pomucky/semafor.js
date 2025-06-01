@@ -76,7 +76,12 @@ function Semafor() {
         });
     };
     const Erase = () => {
-        if(letters[cursorInd].length == 0 && cursorInd > 0) {
+        if(letters.length == 1) {
+            setLetters([[]]);
+            return;
+        }
+
+        if(cursorInd + 1 == letters.length && letters[cursorInd].length == 0) {
             setLetters(prev => {
                 setNewLetter(prev => prev - 1);
                 setCursorInd(prev => prev - 1);
@@ -85,22 +90,18 @@ function Semafor() {
             return;
         }
 
-        if(letters.length == 1) {
-            setLetters([[]]);
-            return;
-        }
-        setNewLetter(prev => prev - 1);
         if(letters.length == cursorInd + 1) {
             setLetters(prev => {
                 return prev.slice(0, cursorInd);
             });
-            setCursorInd(prev => prev - 1);
         }
         else {
             setLetters(prev => {
                 return prev.slice(0, cursorInd).concat(prev.slice(cursorInd + 1));
             });
         }
+        setNewLetter(prev => Math.max(0, prev - 1));
+        setCursorInd(prev => Math.max(0, prev - 1));
     };
 
     function semaforToText() {
