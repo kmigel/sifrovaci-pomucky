@@ -1,6 +1,6 @@
-import React, {act, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import { useNavigate } from "react-router-dom";
-import './morseovka.scss';
+import './morse.scss';
 
 const MorseMap = new Map([
     [".-", 'A'],
@@ -42,7 +42,7 @@ function BackButton() {
     )
 };
 
-function Morseovka() {
+function Morse() {
     let[text, setText] = useState("");
     let[convertedText, setConvertedText] = useState([]);
     const [morseLetterStarts, setMorseLetterStarts] = useState([]);
@@ -168,9 +168,9 @@ function Morseovka() {
 
 
     return (
-        <div className="morseovka">
+        <div className="morse">
             <div className="title">
-                <h1>Morseovka</h1>
+                <h1>Morse</h1>
                 <button className="flip" onClick={Flip}>Flip . to -</button>
             </div>
             
@@ -231,4 +231,4 @@ function Morseovka() {
     );
 };
 
-export default Morseovka;
+export default Morse;

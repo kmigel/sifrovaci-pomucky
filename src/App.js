@@ -3,7 +3,7 @@ import { Routes, Route, useNavigate, useLocation } from "react-router-dom";
 import './reset.css';
 import './App.scss';
 
-import Morseovka from './pomucky/morseovka.js';
+import Morse from './pomucky/morse.js';
 import Braille from './pomucky/braille.js';
 import Semafor from './pomucky/semafor.js';
 import Numbers from './pomucky/numbers.js';
@@ -40,15 +40,14 @@ function App() {
   return (<>
     <div className={inMenu ? "menu" : "hide"}>
       <div className="button-cont">
-        <MenuButtonWrapper name="Morseovka" />
+        <MenuButtonWrapper name="Morse" />
         <MenuButtonWrapper name="Braille" />
         <MenuButtonWrapper name="Semafor" />
         <MenuButtonWrapper name="Numbers" />
-        <MenuButtonWrapper name="Pomucka" />
       </div>
     </div>
     <Routes>
-      <Route path="/morseovka" element={<Morseovka />} />
+      <Route path="/morse" element={<Morse />} />
       <Route path="/braille" element={<Braille />} />
       <Route path="/semafor" element={<Semafor />} />
       <Route path="/numbers" element={<Numbers />} />

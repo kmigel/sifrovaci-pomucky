@@ -1,41 +1,46 @@
-$bg-color: black;
-$text-color: #00c9c8;
-
-html, body, div {
-    background-color: $bg-color;
-    color: white;
+* {
+    background-color: black;
 }
+  
+html, body, #root {
+    height: 100%;
+    width: 100%;
+}
+  
 
-// Menu
 .menu {
     display: flex;
-    align-items: center;
     justify-content: center;
-    width: 100%;
-    padding: 2vmin;
-
-    > .button-cont {
-        display: flex;
-        justify-content: space-around;
+    align-items: center;
+    height: 100vh;
+  
+    .button-cont {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 20px;
+        width: 80%;
         max-width: 800px;
-        gap: 5vmin;
-        flex-wrap: wrap;
-        > button {
+    
+        button {
             background-color: #222;
-            color: white;
-            width: 25vmin;
-            height: 25vmin;
-            min-width: 130px;
-            min-height: 130px;
-            font-size: 1.25rem;
-            border: 9px solid $text-color;
-            border-radius: 50%;
-            
-            transition: background-color 0.4s linear;
-            &:hover {
-                background-color: rgba(51, 181, 225, 0.4);
-                color: white;
-            }
+            border: 0px solid #555;
+            border-radius: 8px;
+            color: #eee;
+            font-size: 1.5em;
+            font-family: Arial, Helvetica, sans-serif;
+            padding: 20px;
+            cursor: pointer;
+            transition: background-color 0.2s, transform 0.2s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0.5px 0.5px 5px #ff4444;
+        }
+    }
+  
+    @media (hover: hover) and (pointer: fine) {
+        .button-cont button:hover {
+            background-color: #444;
+            transform: translateY(-2px);
         }
     }
 }
