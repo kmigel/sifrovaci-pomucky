@@ -70,29 +70,29 @@ function Braille() {
         });        
     }
     const Erase = () => {
-        if(letters[cursorInd] == "000000" && cursorInd > 0) {
+        if(letters.length == 1) {
+            setLetters(["000000"]);
+            return;
+        }
+        if(cursorInd + 1 == letters.length && letters[cursorInd] == "000000") {
             setLetters(prev => {
-                setCursorInd(prev => prev - 1);
+                setCursorInd(prev => Math.max(0, prev - 1));
                 return prev.slice(0, cursorInd - 1).concat(["000000"]);
             });
             return;
         }
 
-        if(letters.length == 0) return;
-        if(letters.length == 1) {
-            setLetters(["000000"]);
-        }
-        else if(letters.length == cursorInd + 1) {
+        if(letters.length == cursorInd + 1) {
             setLetters(prev => {
                 return prev.slice(0, cursorInd);
             });
-            setCursorInd(prev => prev - 1);
         }
         else {
             setLetters(prev => {
                 return prev.slice(0, cursorInd).concat(prev.slice(cursorInd + 1));
             });
         }
+        setCursorInd(prev => Math.max(0, prev - 1));
     }
 
     function brailleToText(letters) {
