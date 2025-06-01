@@ -39,8 +39,24 @@ function Numbers() {
     const digits = digitsByMode[mode];
 
     const pressKey = (key) => {
-        if(key == " " && text.endsWith(" ")) return;
-        setText(prev => prev + key);
+        if(cursorInd == text.length) {
+            if(key == " " && text.endsWith(" ")) return;
+            setText(prev => prev + key);
+            setCursorInd(prev => prev + 1);
+            return;
+        }
+        if(key == " " &&
+            (cursorInd == 0 ||
+            text[cursorInd - 1] == " " ||
+            (cursorInd + 1 < text.length && text[cursorInd + 1] == " ") ||
+            (cursorInd < text.length && text[cursorInd] == " "))) {
+                return;
+        }
+        setText(prev => {
+            const before = prev.slice(0, cursorInd);
+            const after = prev.slice(cursorInd + 1);
+            return before + key + after;
+        });
         setCursorInd(prev => prev + 1);
     }
     const erase = () => {
@@ -49,13 +65,13 @@ function Numbers() {
             setText(prev => {
                 return prev.slice(0, cursorInd - 1) + prev.slice(cursorInd)
             });
-            setCursorInd(prev => prev - 1);
+            setCursorInd(prev => Math.max(0, prev - 1));
         }
         else {
             setText(prev => {
                 return prev.slice(0, cursorInd) + prev.slice(cursorInd + 1)
             });
-            setCursorInd(prev => prev - 1);
+            setCursorInd(prev => Math.max(0, prev - 1));        
         }
     }
 
