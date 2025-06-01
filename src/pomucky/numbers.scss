@@ -1,0 +1,127 @@
+.numbers {
+    padding: 30px;
+    background-color: black;
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+    .text-gap {
+        min-height: 1.7em;
+        display: flex;
+        flex-wrap: wrap;
+        margin-bottom: 10px;
+    }
+
+    .title {
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        font-size: 2em;
+        user-select: none;
+    
+        .arrow {
+          margin-left: 10px;
+          font-size: 0.6em;
+        }
+    
+        &:hover {
+          color: #ff4444;
+        }
+    }
+
+    .dropdown {
+        list-style: none;
+        padding: 0;
+        margin: 10px 0 20px 0;
+        border: 1px solid #333;
+        border-radius: 4px;
+        background-color: #222;
+        max-width: 200px;
+    
+        .mode {
+            font-size: 1.2em;
+            padding: 10px;
+            cursor: pointer;
+    
+            &.active {
+                background-color: #444;
+                color: #ff4444;
+            }
+    
+            &:hover {
+                background-color: #444;
+            }
+        }
+      }
+    
+
+    .letter, .symbol {
+        min-width: 0.4em;
+        margin: 0 2px;
+        margin-bottom: 2px;
+        font-size: 1.3em;
+    }
+
+    .symbol.cursor {
+        text-decoration: underline;
+        font-weight: bold;
+        color: #ff4444;
+    }
+
+    .controls button, .back-button {
+        background-color: #222;
+        border: 1px solid #555;
+        border-radius: 4px;
+        color: #eee;
+        padding: 8px 12px;
+        cursor: pointer;
+        font-size: 2em;
+    }
+
+    .controls-container {
+        display: flex;
+        justify-content: center;
+    }
+
+    .controls {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+        margin: 20px 0;
+        font-size: 1.5em;
+        padding: 15px;
+        max-width: 280px;
+        width: 100%;
+        
+        button {
+            padding: 15px;
+            font-size: 1.5em;
+        }
+
+        .wide {
+            grid-column: span 2;
+        }
+        .super-wide {
+            grid-column: span 3;
+        }
+    }
+
+    .letter {
+        border-bottom: 1px dotted white;
+        &.active {
+            background-color: #444444c1;
+            border-bottom: 1px solid #ff4444;
+        }
+    }
+    .back-button {
+        margin-top: 20px;
+        font-size: 1.2em;
+    }
+
+    @media (hover: hover) and (pointer: fine) {
+        .symbol:hover, .letter:hover, h3:hover, .mode:hover {
+            cursor: pointer;
+        }
+        .controls button:hover, .back-button:hover, .flip:hover {
+            background-color: #444;
+        }
+    }
+}

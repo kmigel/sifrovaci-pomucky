@@ -6,6 +6,7 @@ import './App.scss';
 import Morseovka from './pomucky/morseovka.js';
 import Braille from './pomucky/braille.js';
 import Semafor from './pomucky/semafor.js';
+import Numbers from './pomucky/numbers.js';
 
 class MenuButton extends Component {
   constructor(props) {
@@ -42,7 +43,7 @@ function App() {
         <MenuButtonWrapper name="Morseovka" />
         <MenuButtonWrapper name="Braille" />
         <MenuButtonWrapper name="Semafor" />
-        <MenuButtonWrapper name="Pomucka" />
+        <MenuButtonWrapper name="Numbers" />
         <MenuButtonWrapper name="Pomucka" />
       </div>
     </div>
@@ -50,6 +51,7 @@ function App() {
       <Route path="/morseovka" element={<Morseovka />} />
       <Route path="/braille" element={<Braille />} />
       <Route path="/semafor" element={<Semafor />} />
+      <Route path="/numbers" element={<Numbers />} />
     </Routes>
   </>);
 }
