@@ -29,6 +29,11 @@ function Numbers() {
     const selectMode = (newMode) => {
         setMode(newMode);
         setDropdownOpen(false);
+        setConvertedText("");
+        setText("");
+        setCursorInd(0);
+        setActiveIndex(1);
+        setLetterStart([]);
     }
 
     const digitsByMode = {
@@ -41,6 +46,19 @@ function Numbers() {
     const pressKey = (key) => {
         if(cursorInd == text.length) {
             if(key == " " && text.endsWith(" ")) return;
+            if(key != " " && mode == "binary" && cursorInd >= 4 &&
+                text[cursorInd - 1] != ' ' && text[cursorInd - 2] != ' ' && text[cursorInd - 3] != ' ' && text[cursorInd - 4] != ' ') {
+                setText(prev => prev + key + " ");
+                setCursorInd(prev => prev + 2);
+                return;
+            }
+            if(key != " " && mode == "ternary" && cursorInd >= 2 &&
+                text[cursorInd - 1] != ' ' && text[cursorInd - 2] != ' ') {
+                setText(prev => prev + key + " ");
+                setCursorInd(prev => prev + 2);
+                return;
+            }
+
             setText(prev => prev + key);
             setCursorInd(prev => prev + 1);
             return;
